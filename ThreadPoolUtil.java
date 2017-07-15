@@ -1,4 +1,3 @@
-package Concurrencey;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -10,7 +9,7 @@ import java.util.concurrent.*;
  * Time: 10:09
  */
 public final class ThreadPoolUtil {
-    private static final Map<String,ExecutorService> poolMonitor = new HashMap<String, ExecutorService>();
+    private static final Map<String, ExecutorService> poolMonitor = new HashMap<String, ExecutorService>();
     private static final Object lock = new Object();
     private static final CleanThread cleanThread = new CleanThread();
 
@@ -25,7 +24,7 @@ public final class ThreadPoolUtil {
         private void addThread(Thread thread) {
             threads.add(thread);
         }
-        @Override
+
         public void run() {
             for (Thread thread : threads) {
                 thread.interrupt();
@@ -49,7 +48,6 @@ public final class ThreadPoolUtil {
             super(executorService);
         }
 
-        @Override
         public void run() {
             executorService.shutdownNow();
         }
@@ -137,10 +135,10 @@ public final class ThreadPoolUtil {
         return poolExecutor;
     }
 
-    public static ThreadPoolExecutor newThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,TimeUnit unit,String prefix, CleanThreadPool cleanThreadPool) {
+    public static ThreadPoolExecutor newThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, String prefix, CleanThreadPool cleanThreadPool) {
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, new LinkedBlockingQueue<Runnable>(), new SimpleThreadFactory(prefix));
         Runtime.getRuntime().addShutdownHook(new Thread(cleanThreadPool));
-        String info = String.format("ThreadPool name : %s, pool thread %d core. %d max. %d aliveTime. %s unit , default clean ", prefix, corePoolSize, maximumPoolSize, keepAliveTime,unit.name());
+        String info = String.format("ThreadPool name : %s, pool thread %d core. %d max. %d aliveTime. %s unit , default clean ", prefix, corePoolSize, maximumPoolSize, keepAliveTime, unit.name());
         synchronized (lock) {
             poolMonitor.put(info, poolExecutor);
         }

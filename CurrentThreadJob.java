@@ -1,4 +1,4 @@
-package Concurrencey;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +6,7 @@ package Concurrencey;
  * Date: 2017/2/8
  * Time: 10:08
  */
-public  abstract  class CurrentThreadJob<T> implements TimeoutJob {
+public abstract class CurrentThreadJob<T> implements TimeoutJob {
     public abstract T getResult();
 
 }

@@ -1,4 +1,3 @@
-package Concurrencey;
 
 import com.google.common.collect.HashMultimap;
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ public abstract class TimeoutPool<T extends TimeoutJob> {
     protected ReentrantLock lock;
     protected Logger logger = LoggerFactory.getLogger(getClass());
     //bind t to currentThread,may be remove by timeout thread,ThreadLocal cannot be used
-    protected HashMultimap<T,Thread> threadMap = HashMultimap.create();
+    protected HashMultimap<T, Thread> threadMap = HashMultimap.create();
 
     public boolean add(T t) {
         lock.lock();
@@ -39,6 +38,7 @@ public abstract class TimeoutPool<T extends TimeoutJob> {
             lock.unlock();
         }
     }
+
     public void start() {
         start(defaults);
     }
@@ -52,19 +52,19 @@ public abstract class TimeoutPool<T extends TimeoutJob> {
             ThreadPoolUtil.registerShutdown(thread);
         }
     }
-    protected static interface DoTimeout extends Runnable{
+
+    protected static interface DoTimeout extends Runnable {
     }
 
     protected DoTimeout defaults = new DoTimeout() {
-        @Override
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    logger.debug(e.getMessage(),e);
+                    logger.debug(e.getMessage(), e);
                 }
-                final HashMultimap<TimeoutJob,Thread> timeoutJobs = HashMultimap.create();
+                final HashMultimap<TimeoutJob, Thread> timeoutJobs = HashMultimap.create();
                 lock.lock();
                 try {
                     Iterator<Map.Entry<T, Thread>> iterator = threadMap.entries().iterator();
@@ -81,7 +81,6 @@ public abstract class TimeoutPool<T extends TimeoutJob> {
                 }
                 if (!executor.isShutdown()) {
                     executor.execute(new Runnable() {
-                        @Override
                         public void run() {
                             for (Map.Entry<TimeoutJob, Thread> entry : timeoutJobs.entries()) {
                                 try {

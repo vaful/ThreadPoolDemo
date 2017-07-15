@@ -1,4 +1,3 @@
-package Concurrencey;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,7 +7,7 @@ package Concurrencey;
  */
 public interface TimeoutJob {
     /**
-     * @return  -1 means not yet start
+     * @return -1 means not yet start
      */
     public long startTime();
 

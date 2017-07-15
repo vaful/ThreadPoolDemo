@@ -1,4 +1,4 @@
-package Concurrencey;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,8 +7,11 @@ package Concurrencey;
  * Time: 10:12
  */
 public final class JobPool extends TimeoutPool<TimeoutJob> {
-    private JobPool(){}
+    private JobPool() {
+    }
+
     private static JobPool instance = null;
+
     public static JobPool getInstance() {
         if (instance == null) {
             synchronized (JobPool.class) {

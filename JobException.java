@@ -1,4 +1,4 @@
-package Concurrencey;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +6,7 @@ package Concurrencey;
  * Date: 2017/2/8
  * Time: 10:05
  */
-public class JobException extends Exception{
+public class JobException extends Exception {
     private Integer errorCode;
 
     public JobException() {

@@ -1,5 +1,3 @@
-package Concurrencey;
-
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,10 +14,9 @@ public class SimpleThreadFactory implements ThreadFactory {
 
     public SimpleThreadFactory(String prefix) {
         group = Thread.currentThread().getThreadGroup();
-        namePrefix = "pool-"+prefix+"-thread-";
+        namePrefix = "pool-" + prefix + "-thread-";
     }
 
-    @Override
     public Thread newThread(Runnable r) {
         return new Thread(group, r, namePrefix + threadNumber.getAndIncrement());
     }
