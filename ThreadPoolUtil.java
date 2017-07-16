@@ -13,10 +13,6 @@ public final class ThreadPoolUtil {
     private static final Object lock = new Object();
     private static final CleanThread cleanThread = new CleanThread();
 
-    static {
-        Runtime.getRuntime().addShutdownHook(new Thread(cleanThread));
-    }
-
     private static class CleanThread implements Runnable {
 
         private List<Thread> threads = Collections.synchronizedList(new ArrayList<Thread>());
